@@ -1,0 +1,162 @@
+{
+	"pages": [
+		{
+		"path": "pages/index/login",
+		"style": {
+			"navigationBarTitleText": "登录"
+			}
+		},
+		{
+		"path": "pages/index/index",
+		"style": {
+			"navigationBarTitleText": "选择门店"
+			}
+		},
+		{
+		"path": "pages/bank/Index",
+		"style": {
+			"navigationBarTitleText": "收银员对账"
+			}
+		},
+		{
+		"path": "pages/boat/Index",
+		"style": {
+			"navigationBarTitleText": "看板",
+			"enablePullDownRefresh": true
+			}
+		},
+		{
+		"path": "pages/me/Index",
+		"style": {
+			"navigationBarTitleText": "我的"
+			}
+		},
+		{
+		"path": "pages/hotList/Index",
+		"style": {
+			"navigationBarTitleText": "全店热卖"
+			}
+		},
+		{
+		"path": "pages/analysis/Index",
+		"style": {
+			"navigationBarTitleText": "分析"
+			}
+		},
+		{
+		"path": "pages/supplier/Index",
+		"style": {
+			"navigationBarTitleText": "供应商"
+			}
+		},
+		{
+		"path": "pages/SalesStatistics/Index",
+		"style": {
+			"navigationBarTitleText": "销售统计"
+			}
+		},
+		{
+		"path": "pages/goods/index",
+		"style": {
+			"navigationBarTitleText": "商品详情"
+			}
+		},
+		{
+		"path": "pages/menber/index",
+		"style": {
+			"navigationBarTitleText": "会员分析"
+			}
+		},
+		{
+		"path": "pages/hotList/storeList",
+		"style": {
+			"navigationBarTitleText": "门店排行"
+			}
+		},
+		{
+		"path": "pages/hotList/catList",
+		"style": {
+			"navigationBarTitleText": "类别排行"
+			}
+		},
+		{
+		"path": "pages/hotList/band",
+		"style": {
+			"navigationBarTitleText": "品牌排行"
+			}
+		},
+		{
+		"path": "pages/goods/kucun",
+		"style": {
+			"navigationBarTitleText": "商品库存"
+			}
+		},
+		{
+		"path": "pages/goods/cu",
+		"style": {
+			"navigationBarTitleText": "促销商品排行"
+			}
+		},
+		{
+		"path": "pages/index/lsOrder",
+		"style": {
+			"navigationBarTitleText": "零售统计"
+			}
+		},
+		{
+		"path": "pages/index/pfOrder",
+		"style": {
+			"navigationBarTitleText": "批发统计"
+			}
+		},
+		{
+		"path": "pages/goods/lyGoods",
+		"style": {
+			"navigationBarTitleText": "联营商品"
+			}
+		},
+		{
+		"path": "pages/index/lsDetail",
+		"style": {
+			"navigationBarTitleText": "零售详情"
+			}
+		},
+		{
+		"path": "pages/index/pfDetail",
+		"style": {
+			"navigationBarTitleText": "批发详情"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#007AFF",
+		"backgroundColor": "#FFFFFF"
+	},
+	  "tabBar": {
+	    "color": "#CCCCCC",
+	    "selectedColor": "#357EEF",
+	    "borderStyle": "black",
+	    "backgroundColor": "#fff",
+	    "list": [
+	      {
+	        "pagePath": "pages/boat/Index",
+	        "text": "看板",
+	        "iconPath": "./static/images/boat.png",
+	        "selectedIconPath": "./static/images/boatActive.png"
+	      },{
+	        "pagePath": "pages/analysis/Index",
+	        "text": "分析",
+	        "iconPath": "./static/images/fx.png",
+	        "selectedIconPath": "./static/images/fxActive.png"
+	      },
+	      {
+	        "pagePath": "pages/me/Index",
+	        "text": "我的",
+	        "iconPath": "./static/images/meFile.png",
+	        "selectedIconPath": "./static/images/meFileActive.png"
+	      }
+	    ]
+	  }
+}
