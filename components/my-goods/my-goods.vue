@@ -11,7 +11,7 @@
 			</view>
 			<view class="detail">
 				<view class="left,boxLeft">
-					<text>销量:</text>
+					<text class="xiao">销量:</text>
 					<text class="left-word">{{item.totalNumber}}</text>
 				</view>
 				<view class="left,box">
@@ -47,6 +47,9 @@
 <style lang="scss">
 	.my-goods {
 		max-width: 100%;
+		.xiao {
+			flex: none;
+		}
 		.my-goods-box {
 			padding: 15px 0;
 			border-bottom: 1px solid #EEEEEE;

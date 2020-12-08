@@ -32,7 +32,7 @@
 		},
 		data() {
 			return {
-				images: require('../../static/images/me.jpeg'),
+				images: require('../../static/images/me.jpg'),
 				form: {},
 				loading: false
 			}
@@ -113,6 +113,7 @@
 				}
 			}
 			image {
+				border: 1px solid #EEEEEE;
 				margin-right: 10px;
 				height: 70px;
 				width: 70px;

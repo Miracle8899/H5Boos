@@ -20,8 +20,8 @@
 		<view class="content">
 			<uni-collapse>
 				<uni-collapse-item title="门店" :showAnimation="true"  v-if="storeList.length > 0">
-					<my-cell @click="goit('')" name="全部"></my-cell>
-					<my-cell :key="idx" v-for="(item, idx) in storeList" @click="goit(item.id)" :name="item.label"></my-cell>
+					<my-cell @click="goit('', '全部门店')" name="全部" v-if="showALL == 1"></my-cell>
+					<my-cell :key="idx" v-for="(item, idx) in storeList" @click="goit(item.id, item.label)" :name="item.label"></my-cell>
 					
 				</uni-collapse-item>
 			</uni-collapse>
@@ -38,6 +38,7 @@
 				href: 'https://uniapp.dcloud.io/component/README?id=uniui',
 				openId: null,
 				sessionKey: null,
+				showALL: 0,
 			}
 		},
 		async onShow() {
@@ -62,8 +63,9 @@
 			// });
 		await this.getStore()
 		},
-		onLoad () {
-			
+		async onLoad () {
+			let res = await this.$api.selectAllorgcheck({})
+			this.showALL = res
 		},
 		methods: {
 			async getStore (val) {
@@ -73,7 +75,9 @@
 						name: val 
 					})
 				}else{
-					 res = await this.$api.selectAllOrg()
+					 res = await this.$api.selectAllOrg({
+						 name: ''
+					 })
 				}
 				
 				this.storeList = res
@@ -97,6 +101,7 @@
 					
 					if(res.tenant) {
 						uni.setStorageSync('token', res.userInfo.data.token);
+						uni.setStorageSync('account', res.userInfo.data.account)
 						uni.setStorageSync('tenant', res.tenant);
 						vm.$nextTick(async ()=>{
 							await vm.getStore()
@@ -104,7 +109,6 @@
 						vm.$refs.popup.close()
 					}else{
 						vm.$refs.popup.open()
-						console.log(res.openId)
 						vm.openId = res.openId
 						vm.sessionKey = res.sessionKey
 					}
@@ -116,9 +120,11 @@
 			sumInfo () {
 				console.log(val)
 			},
-			goit (val) {
+			goit (val , name) {
 				uni.setStorageSync(
 					'store',val)
+				uni.setStorageSync(
+					'storeName',name)
 				uni.reLaunch({
 					url: "../boat/Index"
 				})

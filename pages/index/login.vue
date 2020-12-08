@@ -35,8 +35,9 @@
 				loading: false,
 			}
 		},
-		async onShow() {
+		async onLoad() {
 			let vm = this
+			// this.show = true
 			uni.login({
 			  provider: 'weixin',
 			  success: async function (loginRes) {
@@ -45,6 +46,7 @@
 				})
 				if(res.tenant) {
 					 uni.setStorageSync('token', res.userInfo.data.token);
+					 uni.setStorageSync('account', res.userInfo.data.account)
 					 uni.setStorageSync('tenant', res.tenant);
 					// await vm.getStore()
 					uni.navigateTo({

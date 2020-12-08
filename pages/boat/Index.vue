@@ -2,7 +2,7 @@
 	<view class="boat">
 		<view class="header">
 			<text class="header-left">
-				全部门店
+				{{storeName}}
 			</text>
 			<text class="header-right" @click="backtochose">
 				切换门店
@@ -190,13 +190,14 @@
 		data() {
 			return {
 				yesterdayRank: [],
+				storeName: '',
 				goodsList: [
 					
 				],
 				bgcList : [
 					{
 						image: require('../../static/images/boat/2.png'),
-						title: '今日库存',
+						title: '实时库存',
 						value: 0,
 					},
 					{
@@ -229,20 +230,21 @@
 				items: ['条码商品', '全部商品'],
 				dataForm: null,
 				pixelRatio: 1,
-				chartData: {
-					categories: ['2012', '2013', '2014', '2015', '2016', '2017'],
-					series: [{
-						name: '成交量A',
-						data: [35, 20, 25, 37, 4, 20],
-						color: '#000000'
-					}, {
-						name: '成交量B',
-						data: [70, 40, 65, 100, 44, 68]
-					}, {
-						name: '成交量C',
-						data: [100, 80, 95, 150, 112, 132]
-					}]
-				},
+				chartData: {},
+				// chartData: {
+				// 	categories: ['2012', '2013', '2014', '2015', '2016', '2017'],
+				// 	series: [{
+				// 		name: '成交量A',
+				// 		data: [35, 20, 25, 37, 4, 20],
+				// 		color: '#000000'
+				// 	}, {
+				// 		name: '成交量B',
+				// 		data: [70, 40, 65, 100, 44, 68]
+				// 	}, {
+				// 		name: '成交量C',
+				// 		data: [100, 80, 95, 150, 112, 132]
+				// 	}]
+				// },
 				cWidth:'',
 				cHeight:'',
 				yjtj: {},
@@ -264,9 +266,11 @@
 		},
 		async onLoad() {
 			this.dataForm = uni.getStorageSync('store')
+			this.storeName = uni.getStorageSync('storeName')
 			this.current = 0
 			if (this.dataForm) {
 				await this.getToday(this.dataForm)
+				await this.getLastWeek(this.dataForm)
 			}else{
 				await this.getYesterdayRank()
 				this.dataForm = null
@@ -287,20 +291,50 @@
 			this.getChart('canvasColumn',this.chartData)
 		},
 		methods: {
+			
+			async getLastWeek (store) {
+				let res  = await this.$api.getLastWeekResults({
+					storeCode: store
+				})
+				let dat = []
+				let money = []
+				let times = []
+				for (let i of res ) {
+					dat.push(i.createTime)
+					money.push(i.total)
+					times.push(i.totalNumber)
+				}
+				let chartData = {
+					categories: dat,
+					series: [
+						{
+							name: '销售额',
+							data: money,
+							color: '#000000'
+						},
+						{
+							name: '销售数量',
+							data: times,
+						},
+					]
+				}
+				this.chartData = chartData
+				
+				console.log(res)
+			},
 			async getToday (id) {
 				let res  = await this.$api.storeMonitoring({
 					storeCode: id
 				})
-				console.log(res)
 				this.bgcList[0].value = res.inventory
 				this.bgcList[1].value = res.unsalableProducts
 				this.bgcList[2].value = res.giftMonitoring
 			},
 			async  changeGoodsRank (val) {
 				if (val.currentIndex === 0) {
-					await this.getHotGoods('1')
+					await this.getHotGoods('1', this.dataForm)
 				}else {
-					await this.getHotGoods('')
+					await this.getHotGoods('', this.dataForm)
 				}
 			},
 			async getHotGoods (val, store) {
